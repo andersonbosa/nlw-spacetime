@@ -1,0 +1,66 @@
+version: '3'
+
+services:
+  mobile-app:
+    build:
+      context: ./services/mobile-nlw-spacetime
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    networks:
+      - apps-net
+      - external-net
+
+  node-server:
+    build:
+      context: ./services/fastify-server
+      dockerfile: Dockerfile
+    ports:
+      - 4000:4000
+    networks:
+      - apps-net
+      - external-net
+
+  nextjs-blog:
+    build:
+      context: ./services/nextjs-blog
+      dockerfile: Dockerfile
+    ports:
+      - 5000:5000
+    networks:
+      - apps-net
+      - external-net
+
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - 9090:9090
+    volumes:
+      - ./services/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - apps-net
+
+  traefik:
+    image: traefik:v2.4
+    ports:
+      - 80:80
+      - 443:443
+      - 8080:8080
+    volumes:
+      - ./services/traefik/traefik.yml:/etc/traefik/traefik.yml
+    networks:
+      - apps-net
+
+  telegraf:
+    image: telegraf
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./services/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    networks:
+      - apps-net
+
+networks:
+  apps-net:
+    driver: bridge
+  external-net:
+    external: true

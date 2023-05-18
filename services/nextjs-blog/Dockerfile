@@ -17,6 +17,7 @@ COPY . .
 RUN npm run build
 
 # Expose the default port for the Next.js blog (assuming it's 5000)
+ENV PORT=5000
 EXPOSE 5000
 
 # Define the command to run the Next.js blog
