@@ -7,7 +7,7 @@ const prisma = new PrismaClient()
 
 
 serverInstance.get('/', (_request, reply) => {
-  reply.send('I want to fuck, Sarah!')
+  reply.send('Hello, world!')
 })
 
 
