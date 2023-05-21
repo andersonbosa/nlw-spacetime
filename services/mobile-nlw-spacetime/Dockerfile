@@ -14,7 +14,7 @@ RUN npm ci
 COPY . .
 
 # Expose the default port for the mobile application (assuming it's 3000)
-EXPOSE 3000
+EXPOSE $PORT_NUMBER
 
 # Define the command to run the mobile application
-CMD ["npm", "start"]
+CMD ["npm", "run", "start"]

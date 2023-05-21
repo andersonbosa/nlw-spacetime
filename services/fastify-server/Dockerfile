@@ -14,7 +14,7 @@ RUN npm ci
 COPY . .
 
 # Expose the default port for the Node.js server (assuming it's 4000)
-EXPOSE 4000
+EXPOSE $PORT_NUMBER
 
 # Define the command to run the Node.js server
-CMD ["npm", "start"]
+CMD ["npm", "run" ,"dev"]

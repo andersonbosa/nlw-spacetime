@@ -5,62 +5,69 @@ services:
     build:
       context: ./services/mobile-nlw-spacetime
       dockerfile: Dockerfile
+      args:
+        - PORT_NUMBER=3000
     ports:
       - 3000:3000
     networks:
       - apps-net
-      - external-net
+      # - external-net
 
-  node-server:
+  fastify-server:
     build:
       context: ./services/fastify-server
       dockerfile: Dockerfile
+      args:
+        - PORT_NUMBER=4000
     ports:
       - 4000:4000
     networks:
       - apps-net
-      - external-net
+      # - external-net
 
   nextjs-blog:
     build:
       context: ./services/nextjs-blog
       dockerfile: Dockerfile
+      args:
+        - PORT_NUMBER=5000
     ports:
       - 5000:5000
     networks:
       - apps-net
-      - external-net
+      # - external-net
 
-  prometheus:
-    image: prom/prometheus
-    ports:
-      - 9090:9090
-    volumes:
-      - ./services/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-    networks:
-      - apps-net
+  # prometheus:
+  #   image: prom/prometheus
+  #   ports:
+  #     - 9090:9090
+  #   volumes:
+  #     - ./services/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+  #   networks:
+  #     - apps-net
 
-  traefik:
-    image: traefik:v2.4
-    ports:
-      - 80:80
-      - 443:443
-      - 8080:8080
-    volumes:
-      - ./services/traefik/traefik.yml:/etc/traefik/traefik.yml
-    networks:
-      - apps-net
+  # traefik:
+  #   image: traefik:v2.4
+  #   ports:
+  #     - 80:80
+  #     - 443:443
+  #     - 8080:8080
+  #   volumes:
+  #     - ./services/traefik/traefik.yml:/etc/traefik/traefik.yml
+  #   networks:
+  #     - apps-net
 
-  telegraf:
-    image: telegraf
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./services/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
-    networks:
-      - apps-net
+  # telegraf:
+  #   image: telegraf
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     - ./services/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+  #   networks:
+  #     - apps-net
 
 networks:
   apps-net:
     driver: bridge
-  external-net:
-    external: true
+    # external: true
+  # external-net:
+  #   external: true
