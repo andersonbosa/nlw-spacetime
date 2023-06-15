@@ -1,13 +1,13 @@
 import 'dotenv/config'
 
-import fastify from 'fastify'
 import cors from '@fastify/cors'
 import jwt from '@fastify/jwt'
 import multipart from '@fastify/multipart'
-import { memoriesRoutes } from './routes/memories'
-import { authRoutes } from './routes/auth'
-import { uploadRoutes } from './routes/upload'
+import fastify from 'fastify'
 import { resolve } from 'node:path'
+import { authRoutes } from './routes/auth'
+import { memoriesRoutes } from './routes/memories'
+import { uploadRoutes } from './routes/upload'
 
 const app = fastify({
   logger: {
@@ -35,8 +35,8 @@ app.register(memoriesRoutes)
 
 app
   .listen({
-    port: 3333,
-    host: '0.0.0.0',
+    port: (process.env.FASTIFY_SERVER_PORT ?? 3333) as number,
+    host: (process.env.FASTIFY_SERVER_HOST ?? '0.0.0.0') as string,
   })
   .then(() => {
     console.log('🚀 HTTP server running on port http://localhost:3333')
