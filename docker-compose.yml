@@ -1,73 +1,117 @@
-version: '3'
+version: '3.4'
 
 services:
-  mobile-app:
+
+  server-fastify:
+    container_name: server-fastify
     build:
-      context: ./services/mobile-nlw-spacetime
+      context: ./services/server-fastify
       dockerfile: Dockerfile
       args:
         - PORT_NUMBER=3000
+    restart: unless-stop
     ports:
       - 3000:3000
     networks:
-      - apps-net
-      # - external-net
+      - spacetime-private-net
 
-  fastify-server:
+  app-web:
+    container_name: app-web
     build:
-      context: ./services/fastify-server
+      context: ./services/app-web
       dockerfile: Dockerfile
       args:
         - PORT_NUMBER=4000
+    restart: unless-stop
     ports:
       - 4000:4000
+    
     networks:
-      - apps-net
-      # - external-net
+      - spacetime-private-net
 
-  nextjs-blog:
+  app-mobile:
+    container_name: app-mobile
     build:
-      context: ./services/nextjs-blog
+      context: ./services/app-mobile
       dockerfile: Dockerfile
       args:
-        - PORT_NUMBER=5000
+        - PORT_NUMBER=4001
+    restart: unless-stop
     ports:
-      - 5000:5000
+      - 4001:4001
+    depends_on:
+      - server-fastify
     networks:
-      - apps-net
-      # - external-net
+      - spacetime-private-net
 
-  # prometheus:
-  #   image: prom/prometheus
-  #   ports:
-  #     - 9090:9090
-  #   volumes:
-  #     - ./services/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-  #   networks:
-  #     - apps-net
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    restart: unless-stop
+    ports:
+      - 7000:7000
+    volumes:
+      - ./services/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    depends_on:
+      - server-fastify
+    networks:
+      - spacetime-private-net
 
-  # traefik:
-  #   image: traefik:v2.4
-  #   ports:
-  #     - 80:80
-  #     - 443:443
-  #     - 8080:8080
-  #   volumes:
-  #     - ./services/traefik/traefik.yml:/etc/traefik/traefik.yml
-  #   networks:
-  #     - apps-net
+  telegraf:
+    image: telegraf:latest
+    container_name: telegraf
+    volumes:
+      - ./services/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+      # - /var/run/docker.sock:/var/run/docker.sock
+    links:
+      - influxdb
+      - prometheus
+    depends_on:
+      - influxdb
+      - server-fastify
+    restart: unless-stop
+    ports:
+      - 7001:7001
+    networks:
+      - spacetime-private-net
 
-  # telegraf:
-  #   image: telegraf
-  #   volumes:
-  #     - /var/run/docker.sock:/var/run/docker.sock
-  #     - ./services/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
-  #   networks:
-  #     - apps-net
+  influxdb:
+    image: influxdb:latest
+    container_name: influxdb
+    environment:
+      - INFLUXDB_DB=influx
+      - INFLUXDB_ADMIN_USER=influxdb
+      - INFLUXDB_ADMIN_PASSWORD=influxdb
+    restart: unless-stop
+    ports:
+      - '9000:9000'
+    volumes:
+      - influxdb_data:/var/lib/influxdb
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: unless-stop
+    ports:
+      - 10000:10000
+    environment:
+      - GF_SECURITY_ADMIN_USER=grafana
+      - GF_SECURITY_ADMIN_PASSWORD=grafana
+      - GF_INSTALL_PLUGINS=
+    links:
+      - influxdb
+      - prometheus
+
+    volumes:
+      -  grafana_data:/var/lib/grafana
+    networks:
+      - spacetime-private-net
+
+volumes:
+  grafana_data: {}
+  influxdb_data: {}
 
 networks:
-  apps-net:
-    driver: bridge
+  spacetime-private-net:
+    # spacetime-net: 
     # external: true
-  # external-net:
-  #   external: true
