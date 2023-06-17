@@ -7,6 +7,7 @@
 
   <!-- badges -->
 
+<!-- 
   <p>
     <a href="#about">About</a> •
     <a href="#technologies">Technologies</a> •
@@ -17,7 +18,6 @@
 </section>
 
 ---
-
 <h2 id="about">💬 About</h2>
 
 This is a collection of some sample models for you to use in your projects. Among them are, for example:
@@ -60,3 +60,4 @@ This project is under the MIT license.
   <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/andersonbosa/dothub?style=social">
   | Did you like the repository? Give it a star! 😁
 </h4>
+-->
