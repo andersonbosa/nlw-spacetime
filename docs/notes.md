@@ -43,3 +43,5 @@ run_container abacate
 5. https://github.com/localstack/localstack-pro-samples
 6. https://github.com/flolu/docker-typescript-debug/blob/master/docker-compose.yml
 7. https://github.com/kconner/next-js-in-docker-example
+8. https://github.com/vercel/next.js/blob/canary/examples/with-docker/Dockerfile
+9. 

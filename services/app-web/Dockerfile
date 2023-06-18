@@ -1,36 +1,23 @@
-FROM node:18.12.0-slim AS deps
+FROM node:18-alpine AS base
+
+# Set working directory
 WORKDIR /app
 
 COPY package.json package-lock.json ./
-RUN  npm ci
+RUN npm ci
 
-##########################################################################
-FROM node:18.12.0-slim AS builder
-WORKDIR /app
-
-COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-ENV NEXT_TELEMETRY_DISABLED 1
-
+# Build app
 RUN npm run build
-
-##########################################################################
-FROM node:18.12.0-slim AS runner
-WORKDIR /app
-
-ENV NODE_ENV production
-ENV NEXT_TELEMETRY_DISABLED 1
-
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-
-COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
-
-USER nextjs
 
 EXPOSE $NEXTJS_PORT
 
-CMD ["npm", "start"]
+# Run container as non-root (unprivileged) user
+# The node user is provided in the Node.js Alpine base image
+USER node
+
+ENV NEXT_TELEMETRY_DISABLED 1
+
+# Run npm start script when container starts
+CMD [ "npm", "start" ]
