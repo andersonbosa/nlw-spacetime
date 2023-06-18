@@ -6,6 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "docker:dev": "next dev --port $PORT",
+    "docker:start": "next start --port $PORT",
     "lint": "next lint --fix"
   },
   "dependencies": {

@@ -16,10 +16,17 @@ get_access_token() {
 ### services/app-web
 
 ```bash
-IMG_TAG="app-web:latest"
 
-docker build -t $IMG_TAG .
-docker run -p 3000:3000 --rm $IMG_TAG
+run_container() {
+  local container_name="$1"
+  local image_tag="${container_name}:latest"
+  local RANDOM_PORT=$RANDOM
+
+  docker build --no-cache -t $image_tag . &&
+    docker run  --rm -d --name $container_name -p $RANDOM_PORT:$RANDOM_PORT $image_tag &&
+    docker logs -f $container_name
+}
+run_container abacate
 ```
 
 ### services/app-mobile
@@ -31,3 +38,8 @@ docker run -p 3000:3000 --rm $IMG_TAG
 1. https://github.com/wpcodevo/google-github-oauth2-nodejs/blob/master/src/controllers/auth.controller.ts
 2. https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps
 3. https://codevoweb.com/how-to-implement-github-oauth-in-reactjs/
+4. https://nodejs.org/api/cli.html#cli_node_options_options
+   1. https://nodejs.org/en/docs/guides
+5. https://github.com/localstack/localstack-pro-samples
+6. https://github.com/flolu/docker-typescript-debug/blob/master/docker-compose.yml
+7. https://github.com/kconner/next-js-in-docker-example

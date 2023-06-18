@@ -1,24 +1,36 @@
-# Use an official Node.js runtime as the base image
-FROM node:18.12.0-slim
-
-# Set the working directory in the container
+FROM node:18.12.0-slim AS deps
 WORKDIR /app
 
-# Copy package.json and package-lock.json to the working directory
-COPY package*.json ./
+COPY package.json package-lock.json ./
+RUN  npm ci
 
-# Install the dependencies
-RUN npm ci
+##########################################################################
+FROM node:18.12.0-slim AS builder
+WORKDIR /app
 
-# Copy the entire application code to the working directory
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Build the Next.js application
+ENV NEXT_TELEMETRY_DISABLED 1
+
 RUN npm run build
 
-# Expose the default port for the Next.js blog (assuming it's 5000)
-ENV PORT=$PORT_NUMBER
-EXPOSE $PORT_NUMBER
+##########################################################################
+FROM node:18.12.0-slim AS runner
+WORKDIR /app
 
-# Define the command to run the Next.js blog
-CMD ["npm", "run", "start"]
+ENV NODE_ENV production
+ENV NEXT_TELEMETRY_DISABLED 1
+
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
+
+USER nextjs
+
+EXPOSE $NEXTJS_PORT
+
+CMD ["npm", "start"]

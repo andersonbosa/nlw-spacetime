@@ -1,5 +1,5 @@
 # Use an official Node.js runtime as the base image
-FROM node:18.12.0-slim
+FROM node:20.3.0-slim
 
 # Set the working directory in the container
 WORKDIR /app
@@ -14,7 +14,7 @@ RUN npm ci
 COPY . .
 
 # Expose the default port for the mobile application (assuming it's 3000)
-EXPOSE $PORT_NUMBER
+EXPOSE $PORT
 
 # Define the command to run the mobile application
 CMD ["npm", "run", "start"]

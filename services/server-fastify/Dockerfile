@@ -1,23 +1,15 @@
-# Use an official Node.js runtime as the base image
-FROM node:18.12.0-slim
+FROM node:18.12.0-slim AS base_node
 
-# Set the working directory in the container
-WORKDIR /app
+WORKDIR /server
 
-# Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
 
-# Install the dependencies
-RUN npm ci
-
-# Copy the entire application code to the working directory
 COPY . .
 
-# TODO
+RUN npm ci
+
 RUN npx prisma generate
 
-# Expose the default port for the Node.js server (assuming it's 4000)
-EXPOSE $PORT_NUMBER
+EXPOSE $FASTIFY_SERVER_PORT
 
-# Define the command to run the Node.js server
-CMD ["npm", "run" ,"dev"]
+CMD ["npm", "start"]

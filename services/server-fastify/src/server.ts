@@ -33,6 +33,13 @@ app.register(authRoutes)
 app.register(uploadRoutes)
 app.register(memoriesRoutes)
 
+app.get('/status', (_req, _res) => {
+  return {
+    status: 'live',
+    when: new Date().toISOString(),
+  }
+})
+
 app
   .listen({
     port: (process.env.FASTIFY_SERVER_PORT ?? 3333) as number,
