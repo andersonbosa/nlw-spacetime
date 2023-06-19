@@ -1,25 +1,25 @@
 version: '3.4'
 
 services:
-  # server_fastify:
-  #   build:
-  #     context: ./services/server-fastify
-  #     dockerfile: Dockerfile
-  #   environment:
-  #     - FASTIFY_SERVER_PORT=3333
-  #     # - NODE_OPTIONS=--inspect=0.0.0.0:9229
-  #   networks:
-  #     - spacetime-private-net
-  #   ports:
-  #     - "3333:3333"
-  #   volumes:
-  #     - ./services/server-fastify:/server
-  #     # - node_modules:/server/node_modules
-  #     # - /server/node_modules
+  server_fastify:
+    build:
+      context: ./services/server-fastify
+      dockerfile: Dockerfile
+    environment:
+      - FASTIFY_SERVER_PORT=3333
+      # - NODE_OPTIONS=--inspect=0.0.0.0:9229
+    networks:
+      - spacetime-private-net
+    ports:
+      - "3333:3333"
+    volumes:
+      - ./services/server-fastify:/server
+      # - node_modules:/server/node_modules
+      # - /server/node_modules
 
   app_web:
-    # depends_on:
-      # - server_fastify
+    depends_on:
+      - server_fastify
     build:
       context: ./services/app-web
       dockerfile: Dockerfile
@@ -30,8 +30,8 @@ services:
       - FASTIFY_SERVER_PORT=3333
     networks:
       - spacetime-private-net
-    # ports:
-    #   - "3000:3000"
+    ports:
+      - "3000:3000"
   #   volumes:
   #     - ./services/app-web:/app
   #     - /app/node_modules
