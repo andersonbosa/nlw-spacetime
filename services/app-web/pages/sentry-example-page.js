@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import * as Sentry from '@sentry/nextjs'
 
-export default function Home () {
+export default function Home() {
   return (
     <div>
       <Head>

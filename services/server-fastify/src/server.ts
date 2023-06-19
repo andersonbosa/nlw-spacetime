@@ -46,5 +46,5 @@ app
     host: (process.env.FASTIFY_SERVER_HOST ?? '0.0.0.0') as string,
   })
   .then(() => {
-    console.log('🚀 HTTP server running on port http://localhost:3333')
+    // console.log('🚀 HTTP server running on port http://localhost:3333')
   })
