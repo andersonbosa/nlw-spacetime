@@ -1,12 +1,13 @@
-FROM node:18.12.0-slim AS base_node
+# https://github.com/prisma/prisma/issues/16901
+FROM node:18-alpine3.16
 
 WORKDIR /server
 
-COPY package*.json ./
+COPY package.json package-lock.json ./
 
 COPY . .
 
-RUN npm ci
+RUN npm install
 
 RUN npx prisma generate
 

@@ -1,9 +1,9 @@
-FROM node:18-alpine AS base
+FROM node:18-alpine3.16
 
-# Set working directory
 WORKDIR /app
 
 COPY package.json package-lock.json ./
+
 RUN npm ci
 
 COPY . .
