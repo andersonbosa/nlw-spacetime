@@ -39,3 +39,6 @@ next-env.d.ts
 .env.local
 .env.production
 .env.homologation
+
+# Sentry Auth Token
+.sentryclirc
