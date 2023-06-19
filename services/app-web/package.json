@@ -6,9 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "docker:dev": "next dev --port $PORT",
+    "docker:start": "next start --port $PORT",
+    "lint": "next lint --fix"
   },
   "dependencies": {
+    "@sentry/nextjs": "^7.55.2",
     "@types/node": "20.1.3",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",

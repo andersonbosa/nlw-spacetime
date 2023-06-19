@@ -1,8 +1,0 @@
-global:
-  scrape_interval: 15s
-  evaluation_interval: 15s
-
-scrape_configs:
-  - job_name: 'node-app'
-    static_configs:
-      - targets: ['mobile-nlw-spacetime:3000', 'fastify-server:4000', 'nextjs-blog:5000']

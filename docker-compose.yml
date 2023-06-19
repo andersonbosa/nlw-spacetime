@@ -1,117 +1,46 @@
 version: '3.4'
 
 services:
-
-  server-fastify:
-    container_name: server-fastify
+  server_fastify:
     build:
       context: ./services/server-fastify
       dockerfile: Dockerfile
-      args:
-        - PORT_NUMBER=3000
-    restart: unless-stop
-    ports:
-      - 3000:3000
+    environment:
+      - FASTIFY_SERVER_PORT=3333
+      # - NODE_OPTIONS=--inspect=0.0.0.0:9229
     networks:
       - spacetime-private-net
+    ports:
+      - "3333:3333"
+    volumes:
+      - ./services/server-fastify:/server
+      # - node_modules:/server/node_modules
+      # - /server/node_modules
 
-  app-web:
-    container_name: app-web
+  app_web:
+    depends_on:
+      - server_fastify
     build:
       context: ./services/app-web
       dockerfile: Dockerfile
       args:
-        - PORT_NUMBER=4000
-    restart: unless-stop
-    ports:
-      - 4000:4000
-    
-    networks:
-      - spacetime-private-net
-
-  app-mobile:
-    container_name: app-mobile
-    build:
-      context: ./services/app-mobile
-      dockerfile: Dockerfile
-      args:
-        - PORT_NUMBER=4001
-    restart: unless-stop
-    ports:
-      - 4001:4001
-    depends_on:
-      - server-fastify
-    networks:
-      - spacetime-private-net
-
-  prometheus:
-    image: prom/prometheus:latest
-    container_name: prometheus
-    restart: unless-stop
-    ports:
-      - 7000:7000
-    volumes:
-      - ./services/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-    depends_on:
-      - server-fastify
-    networks:
-      - spacetime-private-net
-
-  telegraf:
-    image: telegraf:latest
-    container_name: telegraf
-    volumes:
-      - ./services/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
-      # - /var/run/docker.sock:/var/run/docker.sock
-    links:
-      - influxdb
-      - prometheus
-    depends_on:
-      - influxdb
-      - server-fastify
-    restart: unless-stop
-    ports:
-      - 7001:7001
-    networks:
-      - spacetime-private-net
-
-  influxdb:
-    image: influxdb:latest
-    container_name: influxdb
+        - NEXTJS_PORT=3000
     environment:
-      - INFLUXDB_DB=influx
-      - INFLUXDB_ADMIN_USER=influxdb
-      - INFLUXDB_ADMIN_PASSWORD=influxdb
-    restart: unless-stop
-    ports:
-      - '9000:9000'
-    volumes:
-      - influxdb_data:/var/lib/influxdb
-
-  grafana:
-    image: grafana/grafana:latest
-    container_name: grafana
-    restart: unless-stop
-    ports:
-      - 10000:10000
-    environment:
-      - GF_SECURITY_ADMIN_USER=grafana
-      - GF_SECURITY_ADMIN_PASSWORD=grafana
-      - GF_INSTALL_PLUGINS=
-    links:
-      - influxdb
-      - prometheus
-
-    volumes:
-      -  grafana_data:/var/lib/grafana
+      - PORT=3000
+      - FASTIFY_SERVER_PORT=3333
     networks:
       - spacetime-private-net
+    ports:
+      - "3000:3000"
+  #   volumes:
+  #     - ./services/app-web:/app
+  #     - /app/node_modules
+  #     # - node_modules:/app/node_modules
+  #   tmpfs:
+  #     - /app/.next
 
 volumes:
-  grafana_data: {}
-  influxdb_data: {}
+  node_modules: {}
 
 networks:
   spacetime-private-net:
-    # spacetime-net: 
-    # external: true

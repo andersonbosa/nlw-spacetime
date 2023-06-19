@@ -3,7 +3,7 @@ import Image from 'next/image'
 import nlwLogo from '../assets/nlw-spacetime-logo.svg'
 import Link from 'next/link'
 
-export function Hero () {
+export function Hero() {
   return (
     <div className="space-y-5">
       <Image src={nlwLogo} alt="NLW Spacetime" />
@@ -19,7 +19,7 @@ export function Hero () {
       </div>
 
       <Link
-        className="inline-block rounded-full bg-green-500 px-5 py-3 font-alt text-sm uppercase leading-none text-black hover:bg-green-600"
+        className="font-alt inline-block rounded-full bg-green-500 px-5 py-3 text-sm uppercase leading-none text-black hover:bg-green-600"
         href="/memories/new"
       >
         CADASTRAR LEMBRANÇA

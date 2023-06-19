@@ -1,24 +1,23 @@
-# Use an official Node.js runtime as the base image
-FROM node:18.12.0-slim
+FROM node:18-alpine3.16
 
-# Set the working directory in the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json to the working directory
-COPY package*.json ./
+COPY package.json package-lock.json ./
 
-# Install the dependencies
 RUN npm ci
 
-# Copy the entire application code to the working directory
 COPY . .
 
-# Build the Next.js application
+# Build app
 RUN npm run build
 
-# Expose the default port for the Next.js blog (assuming it's 5000)
-ENV PORT=$PORT_NUMBER
-EXPOSE $PORT_NUMBER
+EXPOSE $NEXTJS_PORT
 
-# Define the command to run the Next.js blog
-CMD ["npm", "run", "start"]
+# Run container as non-root (unprivileged) user
+# The node user is provided in the Node.js Alpine base image
+USER node
+
+ENV NEXT_TELEMETRY_DISABLED 1
+
+# Run npm start script when container starts
+CMD [ "npm", "start" ]
