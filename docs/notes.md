@@ -11,9 +11,9 @@ get_access_token() {
 }
 ```
 
-## debugging
+# debugging
 
-### services/app-web
+## services/app-web
 
 ```bash
 
@@ -29,9 +29,20 @@ run_container() {
 run_container abacate
 ```
 
-### services/app-mobile
+## services/app-mobile
 
-### services/server-fastify
+## services/server-fastify
+
+## services/tick/influxdb
+
+Testing authentication 
+```bash
+curl -Lik -G -u root:rootroot http://localhost:8086/query --data-urlencode "q=SHOW DATABASES"
+
+# influx db v2
+curl -Lik 'http://localhost:8888/chronograf/v1/sources?' \
+  --data-raw '{"url":"http://localhost:8086","name":"Influx 1","username":"root-org","password":"c6kdySjlXF77fhZrBcgfkAL9pOK5qTwzxs9TYLcn6a_bQUvPEPk4D1nyD3WfIW1bNzUwpQKkeAwUNpja4JGB2A==","default":false,"telegraf":"telegraf","insecureSkipVerify":false,"metaUrl":"http://localhost:8091","version":"2.x","type":"influx-v2"}'
+```
 
 # references
 
@@ -45,4 +56,8 @@ run_container abacate
 7. https://github.com/kconner/next-js-in-docker-example
 8. https://github.com/vercel/next.js/blob/canary/examples/with-docker/Dockerfile
 9. https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference
-10. 
+10. https://github.com/hekima/sandbox/
+11. https://www.influxdata.com/blog/running-influxdb-2-0-and-telegraf-using-docker/
+12. https://stackoverflow.com/questions/69774634/telegraf-can-not-connect-to-docker-sock
+13. https://github.com/rmountjoy92/DashMachine
+14. 
