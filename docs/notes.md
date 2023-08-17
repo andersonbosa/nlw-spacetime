@@ -15,8 +15,8 @@ get_access_token() {
 
 ## services/app-web
 
+#### build docker container in random port
 ```bash
-
 run_container() {
   local container_name="$1"
   local image_tag="${container_name}:latest"
@@ -26,7 +26,22 @@ run_container() {
     docker run  --rm -d --name $container_name -p $RANDOM_PORT:$RANDOM_PORT $image_tag &&
     docker logs -f $container_name
 }
+
 run_container abacate
+```
+
+#### get memories in browser console
+
+```js
+const {value: t} = await window.cookieStore.get('token')
+
+await fetch ('http://localhost:3333/memories', {
+    headers: {
+        'Authorization': `Bearer ${t}`
+    }
+})
+.then(r => r.json())
+
 ```
 
 ## services/app-mobile

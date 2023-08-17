@@ -3,7 +3,7 @@
 export function Copyright() {
   return (
     <div className="text-sm leading-relaxed text-gray-200">
-      Feito com 💜 pelo{' '}
+      Made with 💜 by{' '}
       <a
         href="https://github.com/andersonbosa"
         target="_blank"
@@ -12,7 +12,7 @@ export function Copyright() {
       >
         @andersonbosa
       </a>{' '}
-      no NLW#12 da{' '}
+      in NLW#12 offered by{' '}
       <a
         target="_blank"
         rel="noreferrer"
