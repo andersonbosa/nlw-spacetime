@@ -13,11 +13,11 @@ import { StrictMode } from 'react'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <StrictMode>
-      <RootLayout>
+    <RootLayout>
+      <StrictMode>
         <Component {...pageProps} />
-      </RootLayout>
-    </StrictMode>
+      </StrictMode>
+    </RootLayout>
   )
 }
 

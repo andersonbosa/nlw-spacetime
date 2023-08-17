@@ -1,12 +1,12 @@
 import { EmptyMemories } from '@/components/EmptyMemories'
-import Memory, { IMemoryProps } from '@/components/Memory'
-import { api } from '@/lib/api'
+import Memory, { IMemoryItem } from '@/components/MemoryCard'
+import { requestMemories } from '@/lib/api'
 import { cookies } from 'next/headers'
 
-const mountMemories = (memories: IMemoryProps[]) => {
+const mountMemories = (memories: IMemoryItem[]) => {
   return (
     <>
-      {memories.map((memory: IMemoryProps) => (
+      {memories.map((memory: IMemoryItem) => (
         <Memory key={memory.id} {...memory} />
       ))}
     </>
@@ -24,13 +24,14 @@ const Home: any = async () => {
   try {
     const token = cookies().get('token')?.value
 
-    const response = await api.get('/memories', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
+    const response = await requestMemories(token)
+    // const response = await api.get('/memories', {
+    //   headers: {
+    //     Authorization: `Bearer ${token}`,
+    //   },
+    // })
 
-    const memories: IMemoryProps[] = response.data
+    const memories: IMemoryItem[] = response.data
 
     if (memories.length === 0) {
       return <EmptyMemories />
