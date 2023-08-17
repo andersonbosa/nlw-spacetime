@@ -1,6 +1,7 @@
 export interface IMemoryItem {
   id: string
   coverUrl: string
-  excerpt: string
+  content: string
   createdAt: string
+  isPublic: boolean
 }

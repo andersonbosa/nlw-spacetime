@@ -7,7 +7,8 @@
     "start": "tsx watch src/server.ts",
     "dev": "nodemon --exec tsx watch src/server.ts",
     "lint": "eslint src --ext .ts --fix",
-    "prisma:studio": "prisma studio"
+    "prisma:studio": "prisma studio",
+    "debug": "sh ./debug.sh"
   },
   "keywords": [],
   "author": "",

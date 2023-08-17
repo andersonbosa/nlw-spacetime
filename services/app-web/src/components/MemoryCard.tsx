@@ -12,7 +12,7 @@ dayjs.locale('pt-br')
 const MemoryCard: React.FC<IMemoryItem> = ({
   id,
   coverUrl,
-  excerpt,
+  content,
   createdAt,
 }) => {
   return (
@@ -27,7 +27,7 @@ const MemoryCard: React.FC<IMemoryItem> = ({
         height={280}
         className="aspect-video w-full rounded-lg object-cover"
       />
-      <p className="text-lg leading-relaxed text-gray-100">{excerpt}</p>
+      <p className="text-lg leading-relaxed text-gray-100">{content}</p>
       <Link
         href={`/memories/${id}`}
         className="flex items-center gap-2 text-sm text-gray-200 hover:text-gray-100"
