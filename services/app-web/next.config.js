@@ -1,7 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['avatars.githubusercontent.com', '192.168.0.1', 'localhost'],
+    domains: [
+      'avatars.githubusercontent.com',
+      '192.168.0.1',
+      '192.168.0.50',
+      'localhost',
+    ],
   },
 }
 
