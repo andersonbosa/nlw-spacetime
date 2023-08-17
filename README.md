@@ -11,8 +11,8 @@
     <a href="#about">About</a> •
     <a href="#technologies">Technologies</a> •
     <a href="#contribution">Contribution</a> •
-    <a href="#author">Author</a> •
     <a href="#license">License</a> •
+    <a href="#demo">Demo ⭐</a>
   </p>
 </section>
 
@@ -53,6 +53,39 @@ Application of memories record developed at NLW 12 offered by [Rocketseat](rocke
 <h2 id="license"> 📝 License</h2>
 
 This project is under the MIT license.
+
+<h2 id="Demo"> ⭐ Demo</h2>
+
+<table align="center">
+  <tr>
+    <td>
+      <details open>
+        <summary><strong>Home non-logged</strong></summary>
+        <img src="./docs/prints/print_2.png">
+      </details>
+    </td>
+    <td>
+      <details open>
+        <summary><strong>Home logged</strong></summary>
+        <img src="./docs/prints/print_1.png">
+      </details>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <details open>
+        <summary><strong>Memories timeline</strong></summary>
+        <img src="./docs/prints/print_3.png">
+      </details>
+    </td>
+    <td>
+      <details open>
+        <summary><strong>Memory item</strong></summary>
+        <img src="./docs/prints/print_4.png">
+      </details>
+    </td>
+  </tr>
+</table>
 
 ---
 
