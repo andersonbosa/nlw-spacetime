@@ -32,6 +32,7 @@ app.register(jwt, { secret: process.env.JWT_SECRET || 'secret-potato' })
 app.register(authRoutes)
 app.register(uploadRoutes)
 app.register(memoriesRoutes)
+// app.register(userRoutes) /* TODO: API CRUD to work with Users */
 
 app.get('/status', (_req, _res) => {
   return {

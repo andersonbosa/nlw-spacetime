@@ -45,8 +45,6 @@ export async function memoriesRoutes (app: FastifyInstance) {
       return reply.status(401).send()
     }
 
-    console.log(request.user)
-
     return memory
   })
 

@@ -2,7 +2,7 @@ import { FastifyInstance } from 'fastify'
 import { z } from 'zod'
 import { prisma } from '../lib/prisma'
 
-export async function memoriesRoutes (app: FastifyInstance) {
+export async function userRoutes (app: FastifyInstance) {
   app.addHook('preHandler', async (request) => {
     await request.jwtVerify()
   })
@@ -20,7 +20,7 @@ export async function memoriesRoutes (app: FastifyInstance) {
       },
     })
 
-    if (user.userId !== request.user.sub) {
+    if (user.id !== request.user.sub) {
       return reply.status(401).send()
     }
 
