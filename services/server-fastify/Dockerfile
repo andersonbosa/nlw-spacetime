@@ -1,13 +1,13 @@
 # https://github.com/prisma/prisma/issues/16901
-FROM node:18-alpine3.16
+FROM node:lts-alpine3.18
 
 WORKDIR /server
 
 COPY package.json package-lock.json ./
 
-COPY . .
+RUN npm ci
 
-RUN npm install
+COPY . .
 
 RUN npx prisma generate
 

@@ -7,7 +7,6 @@
 
   <!-- badges -->
 
-<!-- 
   <p>
     <a href="#about">About</a> •
     <a href="#technologies">Technologies</a> •
@@ -20,25 +19,29 @@
 ---
 <h2 id="about">💬 About</h2>
 
-This is a collection of some sample models for you to use in your projects. Among them are, for example:
+Application of memories record developed at NLW 12 offered by [Rocketseat](rocketseat.com.br/)
 
-* Github templates
-* Github workflows
-  * Application security testing samples
-* Style pattern
 
 <h2 id="technologies"> 🛠️ Technologies</h2>
 
+### Server
 
-* [Markdown](https://www.markdownguide.org/)
-* [SVG](https://developer.mozilla.org/en-US/docs/Web/SVG)
-* [XHTML](https://www.w3docs.com/learn-html/xhtml-extensible-hypertext-markup-language.html)
+* [Typescript](#)
+* [Fastify](#)
+* [Prisma](#)
 
+### Mobile app
 
+* [Typescript](#)
+* [Expo](#)
+* [React Native](#)
 
-<h2>🚀 Deploy</h2>
+### Web appp
 
-* Distributed here, in [Github](https://github.com/andersonbosa/dothub)
+* [Typescript](#)
+* [Next.js](#)
+* [React](#)
+
 
 <h2 id="contribution">🤝 Contribution</h2>
 
@@ -46,9 +49,6 @@ This is a collection of some sample models for you to use in your projects. Amon
   This project is for study purposes too, so please send me a message telling me what you are doing and why you are doing it, teach me what you know. All kinds of contributions are very welcome and appreciated!
 </p>
 
-<h2 id="author">👨‍💻 Author</h2>
-
-* [@andersonbosa](https://github.com/andersonbosa)
 
 <h2 id="license"> 📝 License</h2>
 
@@ -57,7 +57,6 @@ This project is under the MIT license.
 ---
 
 <h4>  
-  <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/andersonbosa/dothub?style=social">
+  <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/andersonbosa/nlw-spacetime?style=social">
   | Did you like the repository? Give it a star! 😁
 </h4>
--->
