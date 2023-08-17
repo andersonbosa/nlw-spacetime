@@ -5,22 +5,12 @@ module.exports = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-
-  
-  darkMode: 'class',
   theme: {
     extend: {
-      textColor: {
-        primary: "var(--color-text-primary)"
-      },
-      
-      backgroundColor: {
-        primary: "var(--color-bg-primary)"
-      },
-
       fontFamily: {
+        sans: 'var(--font-roboto)',
+        alt: 'var--(font-baiJuanjuree)',
       },
-
       colors: {
         gray: {
           50: '#eaeaea',
@@ -46,6 +36,30 @@ module.exports = {
           800: '#48307e',
           900: '#372560',
         },
+        orange: {
+          50: '#ffefeb',
+          100: '#ffccc2',
+          200: '#ffb4a4',
+          300: '#ff927b',
+          400: '#ff7d61',
+          500: '#ff5c3a',
+          600: '#e85435',
+          700: '#b54129',
+          800: '#8c3320',
+          900: '#6b2718',
+        },
+        yellow: {
+          50: '#fff9ec',
+          100: '#ffebc4',
+          200: '#ffe2a7',
+          300: '#ffd47f',
+          400: '#ffcc66',
+          500: '#ffbf40',
+          600: '#e8ae3a',
+          700: '#b5882d',
+          800: '#8c6923',
+          900: '#6b501b',
+        },
         green: {
           50: '#e6fbef',
           100: '#b1f1ce',
@@ -60,26 +74,20 @@ module.exports = {
         },
       },
 
-      backgroundImage: {
-        stripes:
-          'linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1) 12.5%, transparent 12.5%, transparent)',
-      },
-
-      fontSize: {
-        '5xl': '2.5rem',
-      },
-
-      backgroundSize: {
-        stripes: '100% 8px',
-      },
-
       blur: {
         full: '194px',
       },
+      backgroundImage: {
+        stripes:
+          'linear-gradient(to bottom, rgba(255,255,255, 0.1), rgba(255,255,255, 0.1) 12.5%, transparent 12.5%, transparent)',
+      },
+      backgroundSize: {
+        stripes: '100% 8px',
+      },
+      fontSize: {
+        '5xl': '2.5rem',
+      },
     },
   },
-
-  plugins: [
-    require('@tailwindcss/forms')
-  ],
+  plugins: [require('@tailwindcss/forms')],
 }
