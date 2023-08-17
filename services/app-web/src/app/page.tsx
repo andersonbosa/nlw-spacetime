@@ -3,6 +3,16 @@ import Memory, { IMemoryProps } from '@/components/Memory'
 import { api } from '@/lib/api'
 import { cookies } from 'next/headers'
 
+const mountMemories = (memories: IMemoryProps[]) => {
+  return (
+    <>
+      {memories.map((memory: IMemoryProps) => (
+        <Memory key={memory.id} {...memory} />
+      ))}
+    </>
+  )
+}
+
 // TOFIX: problem when FC or Promise<JSX.Element>
 const Home: any = async () => {
   const isAuthenticated = cookies().has('token')
@@ -27,9 +37,7 @@ const Home: any = async () => {
       } else {
         view = (
           <div className="flex flex-col gap-10 p-8">
-            {memories.map((memory) => (
-              <Memory key={memory.id} {...memory} />
-            ))}
+            {mountMemories(memories)}
           </div>
         )
       }
