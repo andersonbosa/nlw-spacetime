@@ -1,18 +1,21 @@
-import './globals.css'
-import { ReactNode } from 'react'
 import {
-  Roboto_Flex as roboto,
-  Bai_Jamjuree as baiJamjuree,
+  Bai_Jamjuree as BaiJamjuree,
+  Roboto_Flex as RobotoFlex,
 } from 'next/font/google'
+import { ReactNode } from 'react'
+import './globals.css'
 
+import { Copyright } from '@/components/Copyright'
 import { Hero } from '@/components/Hero'
 import { Profile } from '@/components/Profile'
 import { SignIn } from '@/components/SignIn'
-import { Copyright } from '@/components/Copyright'
 import { cookies } from 'next/headers'
 
-const robotoFlex = roboto({ subsets: ['latin'], variable: '--font-roboto' })
-const BaiJamjuree = baiJamjuree({
+const robotoFont = RobotoFlex({
+  subsets: ['latin'],
+  variable: '--font-roboto',
+})
+const baijamFont = BaiJamjuree({
   subsets: ['latin'],
   weight: '700',
   variable: '--baiJuanjuree',
@@ -30,7 +33,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body
-        className={`${robotoFlex.variable} ${BaiJamjuree.variable}font-sans bg-gray-900 text-gray-100`}
+        className={`${robotoFont.variable} ${baijamFont.variable} font-sans bg-gray-900 text-gray-100`}
       >
         <main className="grid min-h-screen grid-cols-2">
           {/* Left column */}
