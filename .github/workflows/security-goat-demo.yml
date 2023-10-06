@@ -42,4 +42,4 @@ jobs:
 
     - name: "[Perform Security Gate] Verify security alerts from DependaBot"
       run: |
-        docker run --env-file=.env ${{ env.SECURITY_GOAT_IMAGE }} --verbose
+        docker run --env-file=.env ${{ env.SECURITY_GOAT_IMAGE }} --verbose --error 20
